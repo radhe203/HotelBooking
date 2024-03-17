@@ -33,7 +33,7 @@ export const register = async (req: Request, res: Response) => {
             maxAge: 86400000
         })
 
-        return res.sendStatus(200)
+        return res.status(200).send({message:"user registered ok"})
 
     } catch (error) {
         res.status(500).json({
