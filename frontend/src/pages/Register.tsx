@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../apiClient";
 import { useAppContext } from "../contexts/AppContexts";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export type RegisterFormData = {
   firstname: string;
@@ -12,26 +12,30 @@ export type RegisterFormData = {
   confirmPassword: string;
 };
 
-
-
 function Register() {
-  const { register,watch,handleSubmit,formState:{errors} } = useForm<RegisterFormData>();
-  const {showToast} = useAppContext()
-  const navigate = useNavigate()
-  const mutaion = useMutation(apiClient.register,{
-    onSuccess:()=>{
-      showToast({message:"Register Success" , type:"SUCCESS"})
-      navigate("/")
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>();
+  const { showToast } = useAppContext();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const mutaion = useMutation(apiClient.register, {
+    onSuccess: async () => {
+      showToast({ message: "Register Success", type: "SUCCESS" });
+      await queryClient.invalidateQueries("ValidateToken");
+      navigate("/");
     },
-    onError:(error:Error)=>{
-      showToast({message:error.message , type:"ERROR"})
+    onError: (error: Error) => {
+      showToast({ message: error.message, type: "ERROR" });
+    },
+  });
 
-    }
-  })
-
-  const onSubmit = handleSubmit((data)=>{
-    mutaion.mutate(data)
-  })
+  const onSubmit = handleSubmit((data) => {
+    mutaion.mutate(data);
+  });
 
   return (
     <form className="flex flex-col gap-5" onSubmit={onSubmit}>
@@ -44,7 +48,9 @@ function Register() {
             className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
             {...register("firstname", { required: "This feild is required" })}
           />
-          {errors.firstname && <span className="text-red-500">{errors.firstname.message}</span>}
+          {errors.firstname && (
+            <span className="text-red-500">{errors.firstname.message}</span>
+          )}
         </label>
 
         <label className="text-gray-700 flex-1 text-sm font-bold">
@@ -54,8 +60,9 @@ function Register() {
             className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
             {...register("lastname", { required: "This feild is required" })}
           />
-          {errors.lastname && <span className="text-red-500">{errors.lastname.message}</span>}
-        
+          {errors.lastname && (
+            <span className="text-red-500">{errors.lastname.message}</span>
+          )}
         </label>
       </div>
 
@@ -66,48 +73,65 @@ function Register() {
           className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
           {...register("email", { required: "This feild is required" })}
         />
-          {errors.email && <span className="text-red-500">{errors.email.message}</span>}
-
+        {errors.email && (
+          <span className="text-red-500">{errors.email.message}</span>
+        )}
       </label>
 
       <label className="text-gray-700  text-sm font-bold">
-          password
-          <input
-            type="password"
-            className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
-            {...register("password", {
-              required: "This feild is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters",
-              },
-            })}
-          />
-            {errors.password && <span className="text-red-500">{errors.password.message}</span>}
+        password
+        <input
+          type="password"
+          className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
+          {...register("password", {
+            required: "This feild is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          })}
+        />
+        {errors.password && (
+          <span className="text-red-500">{errors.password.message}</span>
+        )}
+      </label>
 
-        </label>
-
-        <label className="text-gray-700 text-sm font-bold">
-          Confirm password
-          <input
-            type="password"
-            className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
-            {...register("confirmPassword", {
-              validate:(val)=>{
-                if(!val){
-                  return "this feild is required"
-                }else if(watch("password") !== val){
-                  return "password do not match"
-                }
+      <label className="text-gray-700 text-sm font-bold">
+        Confirm password
+        <input
+          type="password"
+          className="border border-blue-400 focus:border-blue-800 rounded w-full py-2 px-2 font-normal my-1 outline-none"
+          {...register("confirmPassword", {
+            validate: (val) => {
+              if (!val) {
+                return "this feild is required";
+              } else if (watch("password") !== val) {
+                return "password do not match";
               }
-            })}
-          />
-            {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
+            },
+          })}
+        />
+        {errors.confirmPassword && (
+          <span className="text-red-500">{errors.confirmPassword.message}</span>
+        )}
+      </label>
 
-        </label>
-       
-          <button type="submit" className=" text-xl w-full p-3 bg-blue-600 rounded uppercase font-medium text-white">Create Account</button>
+      <span className="flex items-center justify-between mt-5">
+        <span className="text-sm text-gray-500">
+          Have an Account ?{" "}
+          <Link to={"/Sign-in"} className=" text-blue-800">
+            Sign in
+          </Link>
+        </span>
+        <button
+          type="submit"
+          className=" text-xl  p-3 bg-blue-600 rounded uppercase font-medium text-white"
+        >
+          Create An account
+        </button>
+      </span>
 
+      
     </form>
   );
 }
