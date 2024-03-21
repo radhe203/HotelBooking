@@ -6,6 +6,7 @@ import userRoutes from "./routes/users"
 import authRoutes from "./routes/auth"
 import cookieParser from "cookie-parser"
 import path from "path"
+import hotelRoutes from "./routes/myhotels"
 import { v2 as cloudinary } from "cloudinary"
 
 
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')))
 
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/my-hotels',hotelRoutes)
 
 app.listen(3000, () => {
     console.log("server is running on port 3000")
