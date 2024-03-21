@@ -10,9 +10,9 @@ const storage = multer.memoryStorage()
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1024 * 1024 * 3 //3mb
-    }
-})
+      fileSize: 5 * 1024 * 1024, // 5MB
+    },
+  });
 //api/my-hotels
 router.post('/', VerifyToken, [
     body('name').notEmpty().withMessage("Name is required"),
@@ -22,6 +22,6 @@ router.post('/', VerifyToken, [
     body("pricePerNight").notEmpty().isNumeric().withMessage("Price per night is required and must be a number"),
     body("facalities").notEmpty().isArray().withMessage("Facalities is required and must be an array"),
     body("type").notEmpty().withMessage("Hotel type is required"),
-], upload.array("ImageFiles", 6), AddHotel)
+], upload.array("imageFiles", 6), AddHotel)
 
 export default router
