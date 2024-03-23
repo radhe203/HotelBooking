@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express"
-import { AddHotel } from "../controllers/myhotels."
+import { AddHotel } from "../controllers/myhotels"
 import multer from "multer"
 import VerifyToken from "../utils/VerifyToken"
 import { body } from "express-validator"
