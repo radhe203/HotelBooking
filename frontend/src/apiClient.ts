@@ -1,7 +1,7 @@
 
 import { RegisterFormData } from "./pages/Register";
 import { SigninFormData } from "./pages/Signin";
-
+import { HotelType } from "../../backend/src/shared/types";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export async function register(formData: RegisterFormData) {
@@ -71,3 +71,14 @@ export async function addMyHotel(hotelFormData: FormData) {
     }
     return response.json();
 }
+
+
+export async function fetchMyHotel(): Promise<HotelType[]> {
+    const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+        credentials: "include"
+    })
+    if(!response.ok){
+        throw new Error("Error fetching Hotels")
+    }
+    return response.json()
+} 

@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express"
-import { AddHotel } from "../controllers/myhotels"
+import { AddHotel, AllHotel } from "../controllers/myhotels"
 import multer from "multer"
 import VerifyToken from "../utils/VerifyToken"
 import { body } from "express-validator"
@@ -23,5 +23,6 @@ router.post('/', VerifyToken, [
     body("facalities").notEmpty().isArray().withMessage("Facalities is required and must be an array"),
     body("type").notEmpty().withMessage("Hotel type is required"),
 ], upload.array("imageFiles", 6), AddHotel)
+router.get('/',VerifyToken,AllHotel)
 
 export default router

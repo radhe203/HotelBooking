@@ -23,7 +23,7 @@ function Header() {
               </Link>
 
               <Link
-                to={"/add-hotels"}
+                to={"/my-hotels"}
                 className=" py-2 px-3  text-white hover:bg-blue-700 cursor-pointer rounded-lg font-semibold"
               >
                 My Hotels

@@ -42,6 +42,10 @@ app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/my-hotels',hotelRoutes)
 
+app.get("*",(req:Request,res:Response)=>{
+res.sendFile(path.join(__dirname,"../../frontend/dist/index.html"))
+})
+
 app.listen(3000, () => {
     console.log("server is running on port 3000")
 })
