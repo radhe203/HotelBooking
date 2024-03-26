@@ -2,7 +2,6 @@ import express, { NextFunction, Request, Response } from "express"
 import { uploadImages } from "../utils/uploadImage";
 import Hotel from "../models/hotels";
 import { HotelType } from "../shared/types";
-import { log } from "console";
 export async function AddHotel(req: Request, res: Response) {
     try {
         const imageFiles = req.files as Express.Multer.File[];
