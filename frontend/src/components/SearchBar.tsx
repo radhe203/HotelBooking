@@ -24,6 +24,7 @@ function SearchBar() {
       childCount,
       hotelId
     );
+    setHotelId(hotelId)
     navigate('/search')
   };
 
