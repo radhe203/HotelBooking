@@ -19,11 +19,11 @@ function Search() {
 
   console.log(page);
   const searchParams = {
-    destination: search.destination.toString(),
-    checkIn: search.checkIn.toISOString(),
-    checkOut: search.checkOut.toISOString(),
-    childCount: search.childCount.toString(),
-    adultCount: search.adultCount.toString(),
+    destination: search?.destination.toString(),
+    checkIn: search?.checkIn.toISOString(),
+    checkOut: search?.checkOut.toISOString(),
+    childCount: search?.childCount.toString(),
+    adultCount: search?.adultCount.toString(),
     page: page.toString(),
     stars: selectedStars,
     type: selectedHotels,
@@ -31,7 +31,6 @@ function Search() {
     maxPrice:selectedPrice,
     sortOption
   };
-  console.log(searchParams);
   const { data: hotelData } = useQuery(["searchHotels", searchParams], () =>
     apiClient.searchHotels(searchParams)
   );

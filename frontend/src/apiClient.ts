@@ -121,7 +121,7 @@ export type SearchParams = {
     sortOption?: string
 }
 
-export const searchHotels = async (SearchParams: SearchParams): Promise<HotelSearchResponse> => {
+export const searchHotels = async (SearchParams: SearchParams ): Promise<HotelSearchResponse> => {
     const queryParams = new URLSearchParams()
     queryParams.append("destination", SearchParams.destination || "")
     queryParams.append("checkIn", SearchParams.checkIn || "")
