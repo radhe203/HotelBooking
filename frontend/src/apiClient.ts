@@ -108,20 +108,20 @@ export async function updateMyHotel(hotelFormData: FormData) {
 }
 
 export type SearchParams = {
-    destination?: string,
-    checkIn?: string,
-    checkOut?: string,
-    adultCount?: string,
-    childCount?: string,
+    destination?: string | undefined,
+    checkIn?: string | undefined,
+    checkOut?: string | undefined,
+    adultCount?: string | undefined,
+    childCount?: string | undefined,
     page?: string,
     facilities?: string[],
     type?: string[],
     stars?: string[],
     maxPrice?: string,
-    sortOption?: string
+    sortOption?: string,
 }
 
-export const searchHotels = async (SearchParams: SearchParams ): Promise<HotelSearchResponse> => {
+export const searchHotels = async (SearchParams: SearchParams): Promise<HotelSearchResponse> => {
     const queryParams = new URLSearchParams()
     queryParams.append("destination", SearchParams.destination || "")
     queryParams.append("checkIn", SearchParams.checkIn || "")

@@ -19,16 +19,16 @@ function Search() {
 
   console.log(page);
   const searchParams = {
-    destination: search?.destination.toString(),
-    checkIn: search?.checkIn.toISOString(),
-    checkOut: search?.checkOut.toISOString(),
-    childCount: search?.childCount.toString(),
-    adultCount: search?.adultCount.toString(),
+    destination: search?.destination?.toString(),
+    checkIn: search?.checkIn?.toISOString(),
+    checkOut: search?.checkOut?.toISOString(),
+    childCount: search?.childCount?.toString(),
+    adultCount: search?.adultCount?.toString(),
     page: page.toString(),
     stars: selectedStars,
     type: selectedHotels,
     facilities:selectedFacilities,
-    maxPrice:selectedPrice,
+    maxPrice:selectedPrice?.toString(),
     sortOption
   };
   const { data: hotelData } = useQuery(["searchHotels", searchParams], () =>
@@ -94,7 +94,7 @@ function Search() {
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold">
             {hotelData?.pagination.total} Hotels found
-            {search.destination ? ` in ${search.destination}` : ""}
+            {search?.destination ? ` in ${search?.destination}` : ""}
           </span>
           <select
           value={sortOption}

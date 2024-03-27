@@ -7,16 +7,16 @@ import { useNavigate } from "react-router-dom";
 function SearchBar() {
     const navigate = useNavigate()
   const search = useSearchContext();
-  const [destination, setDestination] = useState<string>(search.destination);
-  const [checkIn, setCheckIn] = useState<Date>(search.checkIn);
-  const [checkOut, setCheckOut] = useState<Date>(search.checkOut);
-  const [adultCount, setAdultCount] = useState<number>(search.adultCount);
-  const [childCount, setChildCount] = useState<number>(search.childCount);
-  const [hotelId, setHotelId] = useState<string>(search?.hotelId);
+  const [destination, setDestination] = useState<string | undefined>(search?.destination);
+  const [checkIn, setCheckIn] = useState<Date | undefined>(search?.checkIn);
+  const [checkOut, setCheckOut] = useState<Date | undefined>(search?.checkOut);
+  const [adultCount, setAdultCount] = useState<number | undefined>(search?.adultCount);
+  const [childCount, setChildCount] = useState<number | undefined>(search?.childCount);
+  const [hotelId, setHotelId] = useState<string | undefined>(search?.hotelId);
 
   const handelSubmit = (event: FormEvent) => {
     event.preventDefault();
-    search.saveSearchValues(
+    search?.saveSearchValues(
       destination,
       checkIn,
       checkOut,
