@@ -144,3 +144,13 @@ export const searchHotels = async (SearchParams: SearchParams): Promise<HotelSea
     return response.json()
 
 }
+
+export async function viewHotelById(Id: string): Promise<HotelType> {
+    const response = await fetch(`${API_BASE_URL}/api/hotels/${Id}`)
+
+    if (!response.ok) {
+        throw new Error("Error fetching hotel")
+    }
+    return response.json()
+}
+

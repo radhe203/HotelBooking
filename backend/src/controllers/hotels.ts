@@ -1,9 +1,35 @@
 import { Request, Response } from "express";
 import Hotel from "../models/hotels";
 import { HotelSearchResponse } from "../shared/types";
+import { validationResult } from "express-validator";
+
+export async function viewHotel(req: Request, res: Response) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        })
+    }
+
+    try {
+        const Id = req.params.Id.toString();
+        console.log(Id)
+        const hotel = await Hotel.findById(Id)
+    
+        console.log(hotel)
+    if (!hotel) {
+        return res.status(404).json({ message: "Hotel not found" })
+    }
+    res.status(200).json(hotel)
+} catch (error) {
+    res.status(500).json({ message: "Internal Server Error" })
+}
+}
+
+
 export async function search(req: Request, res: Response) {
     const query = constructSearchQuery(req.query)
-    console.log(req.query,"Query")
+    console.log(req.query, "Query")
     let sortOptions = {};
     switch (req.query.sortOption) {
         case "starRating":
@@ -94,7 +120,7 @@ function constructSearchQuery(queryParams: any) {
         }
     }
 
-    console.log(constructedQuery,"quering")
+    console.log(constructedQuery, "quering")
 
     return constructedQuery
 }

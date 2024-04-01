@@ -83,7 +83,7 @@ function SearchBar() {
           maxDate={maxDate}
           placeholderText="Check-in Date"
           className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-ful"
+          wrapperClassName="min-w-full"
         />
       </div>
 
@@ -98,7 +98,7 @@ function SearchBar() {
           endDate={checkOut}
           placeholderText="Check-in Date"
           className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-ful"
+          wrapperClassName="min-w-full"
         />
       </div>
       <div className="flex gap-1">
