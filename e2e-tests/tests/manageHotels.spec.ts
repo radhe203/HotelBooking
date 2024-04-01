@@ -85,3 +85,16 @@ test("should edit hotel", async ({ page }) => {
     await page.getByRole("button", { name: "Save" }).click()
     await expect(page.getByText("Hotel updated successfully")).toBeVisible({ timeout: 6000000 })
 })
+
+
+
+test("should show details page", async ({ page }) => {
+    await page.goto(`${UI_URL}my-hotels`)
+
+    await page.getByPlaceholder("where are you going").fill("Dublin")
+    await page.getByRole("button" ,{name:"Search"}).click()
+
+    await page.getByText("Dublin Getaways").click()
+    await expect(page).toHaveURL(/detail/)
+    await expect(page.getByRole("button",{name:"Book Now"})).toBeVisible()
+})
