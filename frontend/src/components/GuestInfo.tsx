@@ -99,7 +99,7 @@ function GuestInfo({ hotelId, pricePerNight }: Props) {
           maxDate={maxDate}
           startDate={checkIn}
           endDate={checkOut}
-          placeholderText="Check-Out Date"
+          placeholderText="Check-Out DateGuest"
           className="min-w-full bg-white p-2 focus:outline-none"
           wrapperClassName="min-w-full"
         />

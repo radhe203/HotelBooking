@@ -96,7 +96,7 @@ function SearchBar() {
           maxDate={maxDate}
           startDate={checkIn}
           endDate={checkOut}
-          placeholderText="Check-in Date"
+          placeholderText="Check-Out Date"
           className="min-w-full bg-white p-2 focus:outline-none"
           wrapperClassName="min-w-full"
         />
