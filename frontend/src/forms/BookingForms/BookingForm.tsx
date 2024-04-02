@@ -17,6 +17,7 @@ type Props = {
 };
 
 export type BookingFormData = {
+  userId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -37,6 +38,7 @@ function BookingForm({ currentUser, paymentIntent }: Props) {
   const {showToast} = useAppContext()
   const { handleSubmit, register  } = useForm<BookingFormData>({
     defaultValues: {
+      userId:currentUser._id,
       firstName: currentUser.firstname,
       lastName: currentUser.lastname,
       email: currentUser.email,

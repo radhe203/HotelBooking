@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { BookingType, HotelType } from "../shared/types";
 
 const bookingSchema = new mongoose.Schema<BookingType>({
+    userId: { type: String, required: true },
     firstName:{type:String,required:true},
     lastName:{type:String,required:true},
     email:{type:String,required:true},
@@ -13,7 +14,6 @@ const bookingSchema = new mongoose.Schema<BookingType>({
 })
 
 const hotelSchema = new mongoose.Schema<HotelType>({
-    userId: { type: String, required: true },
     name: { type: String, required: true },
     city: { type: String, required: true },
     country: { type: String, required: true },

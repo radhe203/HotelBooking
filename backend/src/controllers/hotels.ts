@@ -198,7 +198,7 @@ export async function BookHotel(req: Request, res: Response) {
             checkOut: req.body.checkOut,
             totalCost: req.body.totalCost,
         }
-
+        console.log(newBooking)
         const hotel = await Hotel.findOneAndUpdate({ _id: req.params.hotelId }, { $push: { bookings: newBooking } })
 
         if (!hotel) {
