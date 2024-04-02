@@ -17,7 +17,6 @@ function Search() {
   const [selectedPrice,setselectedPrice] = useState<number>()
   const [sortOption, setSortOption] = useState<string>("");
 
-  console.log(page);
   const searchParams = {
     destination: search?.destination?.toString(),
     checkIn: search?.checkIn?.toISOString(),

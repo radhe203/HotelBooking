@@ -8,6 +8,7 @@ import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
+import Booking from "./pages/Booking";
 
 function App() {
   const { isLoggedin } = useAppContext();
@@ -44,7 +45,7 @@ function App() {
           path="/detail/:hotelId"
           element={
             <Layout>
-              <Detail/>
+              <Detail />
             </Layout>
           }
         />
@@ -84,6 +85,17 @@ function App() {
             element={
               <Layout>
                 <EditHotel />
+              </Layout>
+            }
+          />
+        )}
+
+        {isLoggedin && (
+          <Route
+            path="/hotel/:hotelId/booking"
+            element={
+              <Layout>
+                <Booking/>
               </Layout>
             }
           />

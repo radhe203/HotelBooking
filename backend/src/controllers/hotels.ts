@@ -1,7 +1,52 @@
 import { Request, Response } from "express";
 import Hotel from "../models/hotels";
-import { HotelSearchResponse } from "../shared/types";
+import { BookingType, HotelSearchResponse } from "../shared/types";
 import { validationResult } from "express-validator";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_API_KEY as string)
+
+export async function paymentIntent(req: Request, res: Response) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        })
+    }
+    const { numberOfNights } = req.body
+    const hotelId = req.params.hotelId
+
+    try {
+        const hotel = await Hotel.findById(hotelId)
+        if (!hotel) {
+            return res.status(404).json({ message: "Hotel not found" })
+        }
+        const totalCost = numberOfNights * hotel.pricePerNight
+
+        const Intent = await stripe.paymentIntents.create({
+            amount: totalCost,
+            currency: "INR",
+            metadata: {
+                hotelId: hotelId,
+                userId: req.userId
+            }
+        })
+
+        if (!Intent.client_secret) {
+            return res.status(400).json({ message: "Error creating payment Intent" })
+        }
+
+        const response = {
+            paymentIntentId: Intent.id,
+            clientSecret: Intent.client_secret.toString(),
+            totalCost: totalCost
+        }
+        res.status(200).json(response)
+    } catch (error) {
+        console.log(error,"error")
+        res.status(500).json({ message: "Internal Server Error" })
+    }
+}
 
 export async function viewHotel(req: Request, res: Response) {
     const errors = validationResult(req)
@@ -10,26 +55,22 @@ export async function viewHotel(req: Request, res: Response) {
             errors: errors.array()
         })
     }
-
     try {
         const Id = req.params.Id.toString();
-        console.log(Id)
         const hotel = await Hotel.findById(Id)
-    
-        console.log(hotel)
-    if (!hotel) {
-        return res.status(404).json({ message: "Hotel not found" })
+
+        if (!hotel) {
+            return res.status(404).json({ message: "Hotel not found" })
+        }
+        res.status(200).json(hotel)
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error" })
     }
-    res.status(200).json(hotel)
-} catch (error) {
-    res.status(500).json({ message: "Internal Server Error" })
-}
 }
 
 
 export async function search(req: Request, res: Response) {
     const query = constructSearchQuery(req.query)
-    console.log(req.query, "Query")
     let sortOptions = {};
     switch (req.query.sortOption) {
         case "starRating":
@@ -120,7 +161,54 @@ function constructSearchQuery(queryParams: any) {
         }
     }
 
-    console.log(constructedQuery, "quering")
 
     return constructedQuery
+}
+
+
+export async function BookHotel(req: Request, res: Response) {
+    try {
+        console.log(req.body)
+
+        // const IntentId = req.body.paymentIntentId
+
+        // const paymentIntent = await stripe.paymentIntents.retrieve(
+        //     IntentId as string
+        // )
+
+        // if (!paymentIntent) {
+        //     return res.status(400).json({ message: "something went wrong" })
+        // }
+
+        // if (paymentIntent.metadata.hotelId !== req.params.hotelId || paymentIntent.metadata.userId !== req.userId) {
+        //     return res.status(400).json({ message: "something went wrong" })
+        // }
+        // if (paymentIntent.status !== "succeeded") {
+        //     return res.status(400).json({ message: `payment failure , status:${paymentIntent.status}` })
+        // }
+
+        const newBooking: BookingType = {
+            userId: req.userId,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            adultCount: req.body.adultCount,
+            childCount: req.body.childCount,
+            checkIn: req.body.checkIn,
+            checkOut: req.body.checkOut,
+            totalCost: req.body.totalCost,
+        }
+
+        const hotel = await Hotel.findOneAndUpdate({ _id: req.params.hotelId }, { $push: { bookings: newBooking } })
+
+        if (!hotel) {
+            return res.status(400).json({ message: "hotel Not Found" })
+        }
+        hotel.save()
+        res.status(200).json({ message: "Hotel booked Successfully" })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Internal Server Error" })
+        return;
+    }
 }

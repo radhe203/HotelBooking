@@ -1,6 +1,7 @@
 import express from "express"
-import { register } from "../controllers/users"
+import { me, register } from "../controllers/users"
 import { check } from "express-validator"
+import VerifyToken from "../utils/VerifyToken"
 const router = express.Router()
 
 router.post('/register', [
@@ -9,5 +10,6 @@ router.post('/register', [
     check('email', "Email is required").isEmail(),
     check('password', "password with 6 characters or more required").isLength({ min: 6 })
 ], register)
+router.get('/me',VerifyToken,me)
 
 export default router

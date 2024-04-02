@@ -8,14 +8,11 @@ function Detail() {
   const { hotelId } = useParams();
   const { data: hotel } = useQuery(
     "viewHotelById",
-    () => {
-      return apiclient.viewHotelById(hotelId as string);
-    },
+    () => apiclient.viewHotelById(hotelId as string),
     {
       enabled: !!hotelId,
     }
   );
-  console.log(hotel);
 
   if (!hotel) {
     return <div>Loading...</div>;
@@ -45,17 +42,18 @@ function Detail() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
-        {
-            hotel.facilities.map((facility) => (
-                <div className=" border border-slate-300 rounded-sm p-3 "> {facility}</div>
-            ))
-        }
+        {hotel.facilities.map((facility) => (
+          <div className=" border border-slate-300 rounded-sm p-3 ">
+            {" "}
+            {facility}
+          </div>
+        ))}
       </div>
 
       <div className=" grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
         <div className=" whitespace-pre-line">{hotel.description}</div>
         <div className="h-fit">
-            <GuestInfo pricePerNight={hotel.pricePerNight} hotelId={hotel._id}/>
+          <GuestInfo pricePerNight={hotel.pricePerNight} hotelId={hotel._id} />
         </div>
       </div>
     </div>

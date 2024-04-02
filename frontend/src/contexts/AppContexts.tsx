@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState } from "react";
 import ShowToast from "../components/ShowToast";
 import { useQuery } from "react-query";
 import * as apiClient from "../apiClient";
-
+import { loadStripe,Stripe } from "@stripe/stripe-js";
+// const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || ""
 type ToastMessage = {
   message: string;
   type: "SUCCESS" | "ERROR";
@@ -10,7 +11,8 @@ type ToastMessage = {
 
 type AppContexts = {
   showToast: (toastMessage: ToastMessage) => void,
-  isLoggedin:boolean
+  isLoggedin:boolean,
+  stripePromise:Promise<Stripe | null>,
 };
 
 const AppContext = createContext<AppContexts | undefined>(undefined);
@@ -20,6 +22,9 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
   const {isError} = useQuery("ValidateToken",apiClient.ValidateToken,{
     retry:false,
   })
+
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY || "");
+
   return (
     <AppContext.Provider
       value={{
@@ -27,6 +32,7 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
         setToast(toast)
         },
         isLoggedin:!isError,
+        stripePromise
       }}
     >
       {Tosat && (

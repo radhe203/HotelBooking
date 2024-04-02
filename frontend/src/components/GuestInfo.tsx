@@ -65,7 +65,7 @@ function GuestInfo({ hotelId, pricePerNight }: Props) {
         data.childCount,
         ""
     )
-    navigate(`/hotel${hotelId}/booking`, {state:{form:location}})
+    navigate(`/hotel/${hotelId}/booking`, {state:{form:location}})
   }
 
   return (

@@ -6,7 +6,6 @@ export async function AddHotel(req: Request, res: Response) {
     try {
         const imageFiles = req.files as Express.Multer.File[];
         const newHotel: HotelType = req.body;
-        // console.log(imageFiles)
         const imageUrls = await uploadImages(imageFiles)
         newHotel.imageUrls = imageUrls;
         newHotel.lastUpdated = new Date();

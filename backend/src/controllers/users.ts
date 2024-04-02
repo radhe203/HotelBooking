@@ -41,3 +41,20 @@ export const register = async (req: Request, res: Response) => {
         })
     }
 }
+
+
+export async function me(req: Request, res: Response) {
+    try {
+        const user = await User.findById(req.userId).select("-password")
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+        return res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json({
+            message: "Something Went wrong"
+        })
+    }
+}

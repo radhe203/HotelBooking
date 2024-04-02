@@ -64,7 +64,6 @@ function ManageHotelForms({ onSave, isLoading, hotel }: Props) {
       formData.append(`imageFiles`, imageFile);
     });
 
-    console.log(formData);
     onSave(formData);
   });
 

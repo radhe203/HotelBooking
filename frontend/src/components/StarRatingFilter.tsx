@@ -6,7 +6,6 @@ type Props = {
 };
 
 function StarRatingFilter({ selectedStars, onChange }: Props) {
-  console.log(selectedStars);
   
   return (
     <div className="border-b border-slate-300 pb-5">
