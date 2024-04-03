@@ -215,3 +215,15 @@ export async function fetchMyBookings(): Promise<HotelType[]> {
     }
     return response.json()
 }
+
+export async function topHotels():Promise<HotelSearchResponse>{
+    console.log("hello")
+    
+    const response = await fetch(`${API_BASE_URL}/api/hotels/search?stars=5`)
+
+    if (!response.ok) {
+        throw new Error("Error searching hotels")
+    }
+
+    return response.json()
+}
