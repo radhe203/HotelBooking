@@ -43,7 +43,7 @@ export async function paymentIntent(req: Request, res: Response) {
         }
         res.status(200).json(response)
     } catch (error) {
-        console.log(error,"error")
+        console.log(error, "error")
         res.status(500).json({ message: "Internal Server Error" })
     }
 }
@@ -210,5 +210,30 @@ export async function BookHotel(req: Request, res: Response) {
         console.log(error)
         res.status(500).json({ message: "Internal Server Error" })
         return;
+    }
+}
+
+
+export async function topBookings(req: Request, res: Response) {
+    try {
+        const topBooking = await Hotel.aggregate([
+
+            { $match: { bookings: { $ne: [] } } },
+            { $group: { _id: "$_id", totalBookings: { $sum: { $size: "$bookings" } } } },
+            { $sort: { totalBookings: -1 } },
+            { $limit: 5 },
+        ])
+
+        const topBookingIds = topBooking.map((booking) => booking._id)
+
+        const hotels = await Hotel.find({ _id: { $in: topBookingIds } }).select("-bookings")
+        console.log(hotels)
+
+        if (!hotels) {
+            return res.status(404).json({ message: "Hotel not found" })
+        }
+        res.status(200).json({hotels,topBooking})
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error" })
     }
 }

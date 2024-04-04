@@ -12,6 +12,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 function Booking() {
   const { stripePromise } = useAppContext();
+  const {showToast} = useAppContext()
   const { hotelId } = useParams();
   const [numberOfNights, setNumberOfNights] = useState<number>(0);
   const search = useSearchContext();
@@ -46,6 +47,10 @@ function Booking() {
       enabled: !!hotelId && numberOfNights > 0,
     }
   );
+
+  if(numberOfNights <= 0 ){
+    showToast({message:"Enter Correct Dates ",type:"ERROR"})
+  }
 
   return (
     <div className="grid md:grid-cols-[1fr_2fr] gap-6">

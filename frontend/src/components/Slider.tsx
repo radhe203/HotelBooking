@@ -45,11 +45,11 @@ export default function Slider() {
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper"
+        className="mySwiper hero-slider"
         autoplay={{ delay: 2000, disableOnInteraction: false }}
       >
         {topHotel.map((hotel,) => (
-          <SwiperSlide key={hotel._id}>
+          <SwiperSlide key={hotel._id} >
             <div className="w-full h-full group slide">
               <img src={hotel.imageUrls[0]} alt="" className="w-full h-full " />
               <Link to={`/detail/${hotel._id}`} className="slide-data ">

@@ -1,5 +1,5 @@
 import express from "express";
-import { BookHotel, paymentIntent, search, viewHotel } from "../controllers/hotels";
+import { BookHotel, paymentIntent, search, topBookings, viewHotel } from "../controllers/hotels";
 import { param } from "express-validator";
 const router = express.Router();
 import Stripe from "stripe";
@@ -7,6 +7,7 @@ import VerifyToken from "../utils/VerifyToken";
 
 
 router.get('/search', search)
+router.get('/topbookings',topBookings ) 
 router.get('/:Id',
     [param("Id").notEmpty().withMessage("Id is Required")]
     , viewHotel) // if we declare this route first then it will not work because of the id. 

@@ -67,7 +67,6 @@ function BookingForm({ currentUser, paymentIntent }: Props) {
       return;
     }
 
-    console.log(elements)
     const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement) as StripeCardElement,
@@ -107,7 +106,7 @@ function BookingForm({ currentUser, paymentIntent }: Props) {
         </div>
         <div>
           <label className="text-gray-700 text-sm font-bold flex-1">
-            First Name
+            Last Name
           </label>
           <input
             type="text"

@@ -18,7 +18,6 @@
    */
   .swiper {
     width: 100%;
-    height: 400px;
   }
   
   .swiper-slide {
@@ -42,7 +41,6 @@
   .slide{
     position: relative;
     transition: background 5s;
-
   }
   .slide-data{
     position: absolute;
@@ -52,6 +50,13 @@
     display: none;
     background:  linear-gradient(to bottom, transparent , rgba(0, 0, 255, 0.5) 70%);
   }
+  
   .slide:hover .slide-data{
     display: block;
+  }
+
+  .hero-slider{
+    width: 100% !important;
+    height: 400px !important;
+    z-index: 10;
   }

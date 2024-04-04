@@ -227,3 +227,23 @@ export async function topHotels():Promise<HotelSearchResponse>{
 
     return response.json()
 }
+
+export type TopBookings = {
+    hotels:HotelType[],
+    topBooking:[
+        _id:string,
+        totalBooking:number
+    ]
+}
+
+export async function topBookings():Promise<TopBookings>{
+    console.log("hello")
+    
+    const response = await fetch(`${API_BASE_URL}/api/hotels/topBookings`)
+
+    if (!response.ok) {
+        throw new Error("Error searching hotels")
+    }
+
+    return response.json()
+}
