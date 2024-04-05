@@ -171,7 +171,6 @@ export async function viewHotelById(Id: string): Promise<HotelType> {
 
 
 export async function createpaymentIntent(hotelId: string, numberOfNights: number):Promise<paymentIntentResponse> {
-    console.log("hello")
     const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`, {
         method: "POST",
         credentials: "include",
@@ -217,7 +216,6 @@ export async function fetchMyBookings(): Promise<HotelType[]> {
 }
 
 export async function topHotels():Promise<HotelSearchResponse>{
-    console.log("hello")
     
     const response = await fetch(`${API_BASE_URL}/api/hotels/search?stars=5`)
 
@@ -237,7 +235,6 @@ export type TopBookings = {
 }
 
 export async function topBookings():Promise<TopBookings>{
-    console.log("hello")
     
     const response = await fetch(`${API_BASE_URL}/api/hotels/topBookings`)
 

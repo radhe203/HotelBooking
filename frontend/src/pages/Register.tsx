@@ -116,8 +116,8 @@ function Register() {
         )}
       </label>
 
-      <span className="flex items-center justify-between mt-5">
-        <span className="text-sm text-gray-500">
+      <span className="flex items-center justify-between mt-5 flex-wrap-reverse">
+        <span className="text-sm text-gray-500 mt-1">
           Have an Account ?{" "}
           <Link to={"/Sign-in"} className=" text-blue-800">
             Sign in
@@ -125,7 +125,7 @@ function Register() {
         </span>
         <button
           type="submit"
-          className=" text-xl  p-3 bg-blue-600 rounded uppercase font-medium text-white"
+          className=" text-xl w-full md:w-fit p-3 bg-blue-600 rounded uppercase font-medium text-white"
         >
           Create An account
         </button>

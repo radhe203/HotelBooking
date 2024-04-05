@@ -7,14 +7,14 @@ type Props = {
 
 function SearchResultCard({hotel}:Props) {
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] border border-slate-300 rounded-lg p-8 gap-8">
-      <div className="w-full h-[300px]">
+    <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] border border-slate-300 rounded-lg p-3 md:p-8 gap-3">
+      <div className="w-full h-[200px] md:h-[300px]">
         <img
           src={hotel.imageUrls[0]}
           className="w-full h-full object-cover object-center"
         />
       </div>
-      <div className="grid grid-rows-[1fr_2fr_1fr]">
+      <div className="grid lg:grid-rows-[1fr_1fr_1fr] ">
         <div>
           <div className="flex items-center">
             <span className="flex">
@@ -33,10 +33,10 @@ function SearchResultCard({hotel}:Props) {
         </div>
 
         <div>
-          <div className="line-clamp-4">{hotel.description}</div>
+          <div className="line-clamp-4 my-5 md:my-0">{hotel.description}</div>
         </div>
 
-        <div className="grid grid-cols-2 items-end whitespace-nowrap">
+        <div className="grid grid-cols-1 md:grid-col-2 items-end whitespace-nowrap">
           <div className="flex gap-1 items-center">
             {hotel.facilities.slice(0, 3).map((facility) => (
               <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">
@@ -52,7 +52,7 @@ function SearchResultCard({hotel}:Props) {
             <span className="font-bold"><span className="font-bold text-xl text-gray-500">₹</span>{hotel.pricePerNight} per night</span>
             <Link
               to={`/detail/${hotel._id}`}
-              className="bg-blue-600 text-white h-full p-2 font-bold text-xl max-w-fit hover:bg-blue-500"
+              className="bg-blue-600 text-white h-full p-2 font-bold  max-w-fit hover:bg-blue-500"
             >
               View More
             </Link>

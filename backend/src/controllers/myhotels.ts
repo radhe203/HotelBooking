@@ -15,7 +15,6 @@ export async function AddHotel(req: Request, res: Response) {
         res.status(201).send(hotel)
 
     } catch (error) {
-        console.log("Error creating hotel", error)
         res.status(500).json({ message: "Error creating hotel" })
     }
 }

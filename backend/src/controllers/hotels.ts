@@ -43,7 +43,6 @@ export async function paymentIntent(req: Request, res: Response) {
         }
         res.status(200).json(response)
     } catch (error) {
-        console.log(error, "error")
         res.status(500).json({ message: "Internal Server Error" })
     }
 }
@@ -168,7 +167,6 @@ function constructSearchQuery(queryParams: any) {
 
 export async function BookHotel(req: Request, res: Response) {
     try {
-        console.log(req.body)
 
         // const IntentId = req.body.paymentIntentId
 
@@ -198,7 +196,6 @@ export async function BookHotel(req: Request, res: Response) {
             checkOut: req.body.checkOut,
             totalCost: req.body.totalCost,
         }
-        console.log(newBooking)
         const hotel = await Hotel.findOneAndUpdate({ _id: req.params.hotelId }, { $push: { bookings: newBooking } })
 
         if (!hotel) {
@@ -227,7 +224,6 @@ export async function topBookings(req: Request, res: Response) {
         const topBookingIds = topBooking.map((booking) => booking._id)
 
         const hotels = await Hotel.find({ _id: { $in: topBookingIds } }).select("-bookings")
-        console.log(hotels)
 
         if (!hotels) {
             return res.status(404).json({ message: "Hotel not found" })

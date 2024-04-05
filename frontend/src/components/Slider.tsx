@@ -29,8 +29,6 @@ export default function Slider() {
   if (error) {
     return <div></div>;
   }
-  // console.log(topHotels)
-  console.log(topHotels);
   
   const topHotel =
     topHotels?.data.map((hotel) => {
@@ -53,7 +51,7 @@ export default function Slider() {
             <div className="w-full h-full group slide">
               <img src={hotel.imageUrls[0]} alt="" className="w-full h-full " />
               <Link to={`/detail/${hotel._id}`} className="slide-data ">
-                <div className=" text-left absolute bottom-5 left-10">
+                <div className=" text-left absolute bottom-5 left-1 md:left-10">
                   <h1 className="text-white text-3xl font-bold">
                     {hotel.name}
                   </h1>

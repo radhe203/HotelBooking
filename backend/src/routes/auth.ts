@@ -5,6 +5,7 @@ import VerifyToken from "../utils/VerifyToken"
 
 const router = express.Router()
 
+
 router.post('/login',[
     check('email','Email is required').isEmail(),
     check('password','Password is required').isLength({min:6})

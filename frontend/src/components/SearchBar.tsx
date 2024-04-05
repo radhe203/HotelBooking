@@ -32,10 +32,13 @@ function SearchBar() {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
+
+  
+
   return (
-    <form
+    <form 
       onSubmit={handelSubmit}
-      className="-mt-8 p-3 bg-orange-400 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
+      className="-mt-8 p-3 bg-orange-400 rounded shadow-md grid grid-cols-1 sm:grid-col-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4"
     >
       <div className="flex flex-row items-center flex-1 bg-white p-2">
         <MdTravelExplore className="mr-2" size={25} />
@@ -48,7 +51,7 @@ function SearchBar() {
         />
       </div>
 
-      <div className="flex bg-white px-2 py-1 gap-2">
+      <div className=" bg-white px-2 py-1 gap-2 hidden md:flex">
         <label className="items-center flex">
           Adults:
           <input
@@ -105,7 +108,7 @@ function SearchBar() {
         <button type="submit" className="w-2/3 bg-blue-600 text-white h-full p-2 font-bold text-xl hover:bg-blue-500">
           Search
         </button>
-        <button  className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500">
+        <button type="reset" className="w-1/3 bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500">
           Clear
         </button>
       </div>

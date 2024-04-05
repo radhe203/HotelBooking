@@ -4,7 +4,7 @@ import * as apiClient from "./../apiClient";
 import { Link } from "react-router-dom";
 import { HotelType } from "../../../backend/src/shared/types";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { FaUser } from "react-icons/fa";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-flip";
@@ -23,7 +23,6 @@ function Home() {
     return apiClient.topBookings();
   });
 
-  console.log(topBookings);
 
   // const hotel = topBookings.hotel || [];
   // // const topBook = topBookings?.topBooking || [];
@@ -31,12 +30,14 @@ function Home() {
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
+
   if (!topBookings) {
     return <></>;
   }
+  const booking:any = topBookings.topBooking;
   return (
     <>
-    <Hero2/>
+      <Hero2 />
       <Slider />
       <div className="my-20">
         <div className="flex flex-col ">
@@ -47,11 +48,11 @@ function Home() {
             <hr className=" border-none bg-blue-500 h-[2px] mb-5" />
           </div>
 
-          {topBookings?.hotels.map((top: HotelType) => {
+          {topBookings?.hotels.map((top: HotelType, index) => {
             return (
               <div
                 key={top._id}
-                className="flex flex-col sm:flex-row gap-2 p-3"
+                className="flex flex-col md:flex-row gap-2 py-3 my-5"
               >
                 {/* <img src={top.imageUrls[0]} className=" md:w-[300px]" /> */}
                 <Link className="" to={`/detail/${top._id}`}>
@@ -61,16 +62,16 @@ function Home() {
                     // pagination={true}
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
                     modules={[EffectFlip, Pagination, Navigation, Autoplay]}
-                    className="mySwiper"
+                    className="home-hotels"
                   >
                     {top.imageUrls.map((imageUrl) => (
                       <SwiperSlide key={imageUrl}>
-                        <img src={imageUrl} alt="" />
+                        <img src={imageUrl} alt="" className=" hotel-image"/>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                 </Link>
-                <div>
+                <div className="relative">
                   <Link
                     to={`/detail/${top._id}`}
                     className="text-[22px] font-bold hover:underline"
@@ -99,6 +100,14 @@ function Home() {
                       );
                     })}
                   </div>
+                  {booking  && (
+                    <div className="flex  gap-2 p-3 items-center static top-0 right-0 md:absolute">
+                      <span>
+                        <FaUser className=" fill-blue-800" />
+                      </span>
+                      Total Bookings.  {booking[index].totalBookings}
+                    </div>
+                  )}
                 </div>
               </div>
             );

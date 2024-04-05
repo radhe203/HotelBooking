@@ -10,7 +10,6 @@ function MyBookings() {
         return apiClient.fetchMyBookings()
     })
 
-    console.log(hotels)
 
     if(!hotels) return (
         <div className="flex justify-center items-center h-screen">

@@ -67,13 +67,13 @@ const queryClient = useQueryClient()
           <span className="text-red-500">{errors.password.message}</span>
         )}
       </label>
-      <span className="flex items-center justify-between mt-5">
-        <span className="text-sm text-gray-500">
+      <span className="flex items-center justify-between mt-5 flex-wrap-reverse">
+        <span className="text-sm text-gray-500 mt-1">
           Havent Registered ? <Link to={'/register'} className=" text-blue-800">create an account</Link>
         </span>
       <button
         type="submit"
-        className=" text-xl  p-3 bg-blue-600 rounded uppercase font-medium text-white"
+        className=" text-xl w-full md:w-fit p-3 bg-blue-600 rounded uppercase font-medium text-white"
       >
         Sign in
       </button>

@@ -77,9 +77,7 @@ function BookingForm({ currentUser, paymentIntent }: Props) {
     if (result.paymentIntent?.status === "succeeded") {
       bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
     }
-    console.log(result)
     const id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    console.log(id)
     if (result) {
       bookRoom({ ...formData, paymentIntentId: id });
     }
