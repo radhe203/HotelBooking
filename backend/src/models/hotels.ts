@@ -15,6 +15,7 @@ const bookingSchema = new mongoose.Schema<BookingType>({
 
 const hotelSchema = new mongoose.Schema<HotelType>({
     name: { type: String, required: true },
+    userId:{type:String,required:true},
     city: { type: String, required: true },
     country: { type: String, required: true },
     description: { type: String, required: true },
